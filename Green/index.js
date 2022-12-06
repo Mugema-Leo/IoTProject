@@ -1,37 +1,72 @@
-const firebaseConfig = {
-    apiKey: "AIzaSyDS-9DkMepwiiPqb-fDVm6DHhaEVtzC3ck",
-    authDomain: "iotproject-28373.firebaseapp.com",
-    projectId: "iotproject-28373",
-    storageBucket: "iotproject-28373.appspot.com",
-    messagingSenderId: "506465296689",
-    appId: "1:506465296689:web:70a0a3f404706060ded010"
-  };
+// api url
+const api_url = "http://localhost:4000/cities/gatsata/";
 
-//   const app = initializeApp(firebaseConfig);
- firebase.initializeApp(firebaseConfig);
- var database = firebase.database()
+// Defining async function
+async function getapi(url) {
+  // Storing response
+  const response = await fetch(url);
 
- function save(){
-    var greenTemperature="27"
-    var greenHumidity="80%"
-    var greenMoisture="70%"
-    var greenDate="12/28/2022,12:58"
-    var dryTemperature="36"
-    var dryHumidity="30%"
-    var dryMoisture="25%"
-    var dryDate="12/28/2022,12:58"
-    alert("Saved")
-    database.ref('citiesData' + greenDate).set({
-        greenTemperature:greenTemperature,
-        greenHumidity:greenHumidity,
-        greenMoisture:greenMoisture,
-        greenDate:greenDate,
-        dryTemperature:dryTemperature,
-        dryHumidity:dryHumidity,
-        dryMoisture:dryMoisture,
-        dryDate:dryDate
+  // Storing data in form of JSON
+  var data = await response.json();
 
-    })
-    
-    alert("Saved")
- }
+  show(data);
+  dryshow(data);
+}
+// Calling that async function
+getapi(api_url);
+
+// Function to hide the loader
+
+// Function to define innerHTML for HTML table
+function show(data) {
+  let tab = `<thead>
+    <tr>
+      <th>Temperature</th>
+      <th>Humidity</th>
+      <th>Moisture</th>
+      <th>Date</th>
+    </tr>
+  </thead>`;
+
+  // Loop to access all rows
+  console.log(data.length);
+  lastData = data[data.length-1];
+  console.log(lastData);
+  //lastData.forEach( item =>{
+  tab += `<tbody><tr>
+	<td>${lastData.greenTemperature} </td>
+	<td>${lastData.greenHumidity}</td>
+	<td>${lastData.greenMoisture}</td>
+	<td>${lastData.createdAt}</td>		
+</tr></tbody>`;
+  //  })
+
+  // Setting innerHTML as tab variable
+  document.getElementById("tempHumidity").innerHTML = tab;
+}
+
+function dryshow(data) {
+  console.log(data);
+  let tab = `<thead>
+    <tr>
+      <th>Temperature</th>
+      <th>Humidity</th>
+      <th>Moisture</th>
+      <th>Date</th>
+    </tr>
+  </thead>`;
+
+  // Loop to access all rows
+  lastData = data[data.length-1];
+  console.log(lastData);
+//  data.forEach((item) => {
+    tab += `<tbody><tr>
+	<td>${lastData.dryTemperature} </td>
+	<td>${lastData.dryHumidity}</td>
+	<td>${lastData.dryMoisture}</td>
+	<td>${lastData.createdAt}</td>		
+</tr></tbody>`;
+ // });
+
+  document.getElementById("drytempHumidity").innerHTML = tab;
+}
