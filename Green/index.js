@@ -5,12 +5,10 @@ const api_url = "http://localhost:4000/cities/gatsata/";
 async function getapi(url) {
   // Storing response
   const response = await fetch(url);
-
   // Storing data in form of JSON
   var data = await response.json();
 
   show(data);
-  dryshow(data);
 }
 // Calling that async function
 getapi(api_url);
@@ -29,9 +27,9 @@ function show(data) {
   </thead>`;
 
   // Loop to access all rows
-  console.log(data.length);
+  //console.log(data.length);
   lastData = data[data.length-1];
-  console.log(lastData);
+  //console.log(lastData);
   //lastData.forEach( item =>{
   tab += `<tbody><tr>
 	<td>${lastData.greenTemperature} </td>
@@ -44,6 +42,25 @@ function show(data) {
   // Setting innerHTML as tab variable
   document.getElementById("tempHumidity").innerHTML = tab;
 }
+
+
+// dry data
+
+const api_url2 = "http://localhost:4000/cities/kimirinko/";
+
+// Defining async function
+async function getapi2(url) {
+  // Storing response
+  const response = await fetch(url);
+
+  // Storing data in form of JSON
+  var data = await response.json();
+
+  
+  dryshow(data);
+}
+// Calling that async function
+getapi2(api_url2);
 
 function dryshow(data) {
   console.log(data);
