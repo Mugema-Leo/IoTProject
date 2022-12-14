@@ -60,8 +60,8 @@ const iotProject = async (greenTemperature, greenHumidity,greenMoisture) => {
 };
 
 var value1=27
-var value2=20
-var value3=70
+var value2=100
+var value3=100
 
 const start = async () => {
     await iotProject(value1, value2,value3);
@@ -69,13 +69,14 @@ const start = async () => {
    
 start();
 
+
     app.get('/cities/gatsata/', (req, res) => {
         ESNGgreen.find({}, (err, found) => {
             if (!err) {
                 res.send(found);
             }
             console.log(err);
-            
+             
         }).clone().catch(err => console.log("Error occured, " + err));
     });
 
@@ -97,8 +98,8 @@ const iotProjectdry = async (dryTemperature,dryHumidity,dryMoisture) => {
     });
 };
 
-var value4=20
-var value5=30
+var value4=30
+var value5=100
 var value6=100
 const start2 = async () => {
     await iotProjectdry(value4,value5,value6);
